@@ -22,6 +22,7 @@ const Navigation = () => {
     { name: t('الرئيسية', 'Home'), href: '#home' },
     { name: t('المشاريع', 'Projects'), href: '#projects' },
     { name: t('المهارات', 'Skills'), href: '#skills' },
+    { name: t('الأسعار', 'Pricing'), href: '#pricing' },
     { name: t('الخصوصية', 'Privacy'), href: '#privacy' },
     { name: t('التواصل', 'Contact'), href: '#contact' },
   ];

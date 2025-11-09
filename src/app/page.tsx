@@ -5,6 +5,7 @@ import Contact from '@/components/Contact';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PrivacySection from '@/components/PrivacySection';
+import Pricing from '@/components/Pricing';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <Projects />
       <Skills />
+      <Pricing />
       <PrivacySection />
       <Contact />
       <Footer />

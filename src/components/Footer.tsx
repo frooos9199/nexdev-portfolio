@@ -18,6 +18,7 @@ const Footer = () => {
     { nameAr: 'الرئيسية', nameEn: 'Home', href: '#home' },
     { nameAr: 'المشاريع', nameEn: 'Projects', href: '#projects' },
     { nameAr: 'المهارات', nameEn: 'Skills', href: '#skills' },
+    { nameAr: 'الأسعار', nameEn: 'Pricing', href: '#pricing' },
     { nameAr: 'الخصوصية', nameEn: 'Privacy', href: '#privacy' },
     { nameAr: 'التواصل', nameEn: 'Contact', href: '#contact' },
   ];
