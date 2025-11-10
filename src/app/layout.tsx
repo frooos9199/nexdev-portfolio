@@ -15,6 +15,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7871843631311768"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="antialiased">
         <LanguageProvider>
           {children}
