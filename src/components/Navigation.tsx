@@ -24,6 +24,7 @@ const Navigation = () => {
     { name: t('المهارات', 'Skills'), href: '#skills' },
     { name: t('الأسعار', 'Pricing'), href: '#pricing' },
     { name: t('الخصوصية', 'Privacy'), href: '#privacy' },
+    { name: t('سياسة الخصوصية', 'Privacy Policy'), href: '/privacy-policy' },
     { name: t('التواصل', 'Contact'), href: '#contact' },
   ];
 
