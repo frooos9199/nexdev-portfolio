@@ -195,7 +195,7 @@ export default function ProjectsPage() {
   };
 
   const handleDeleteProject = (id: number) => {
-    setProjects(projects.filter(project => project.id !== id));
+    setProjects(projects.filter((project: any) => project.id !== id));
     setDeleteConfirm(null);
   };
 
