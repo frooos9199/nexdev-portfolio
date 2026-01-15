@@ -173,13 +173,13 @@ export default function ClientsPage() {
         <div className="bg-green-50 rounded-lg p-4">
           <p className="text-sm text-green-700">عملاء نشطين</p>
           <p className="text-2xl font-bold text-green-900">
-            {clients.filter(c => c.status === 'نشط').length}
+            {clients.filter((c: any) => c.status === 'نشط').length}
           </p>
         </div>
         <div className="bg-blue-50 rounded-lg p-4">
           <p className="text-sm text-blue-700">إجمالي المشاريع</p>
           <p className="text-2xl font-bold text-blue-900">
-            {clients.reduce((sum, c) => sum + (c.projects || 0), 0)}
+            {clients.reduce((sum: number, c: any) => sum + (c.projects || 0), 0)}
           </p>
         </div>
         <div className="bg-purple-50 rounded-lg p-4">
