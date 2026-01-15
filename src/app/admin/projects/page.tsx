@@ -300,7 +300,7 @@ export default function ProjectsPage() {
               </tr>
             </thead>
             <tbody>
-              {projects.map((project) => (
+              {projects.map((project: any) => (
                 <tr key={project.id} className="border-b border-gray-100 hover:bg-gray-50 transition">
                   <td className="py-4 px-6">
                     <div>
