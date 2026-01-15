@@ -111,13 +111,6 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/* Demo Credentials */}
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <p className="text-xs text-gray-600 text-center">
-            💡 <strong>للتجربة:</strong> استخدم البيانات المحفوظة
-          </p>
-        </div>
-
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-gray-600">
           <p>© 2026 NexDev. جميع الحقوق محفوظة</p>
