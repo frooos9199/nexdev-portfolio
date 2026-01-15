@@ -235,19 +235,19 @@ export default function ProjectsPage() {
         <div className="bg-blue-50 rounded-lg p-4">
           <p className="text-sm text-blue-700">قيد التنفيذ</p>
           <p className="text-2xl font-bold text-blue-900">
-            {projects.filter(p => p.status === 'قيد التنفيذ').length}
+            {projects.filter((p: any) => p.status === 'قيد التنفيذ').length}
           </p>
         </div>
         <div className="bg-green-50 rounded-lg p-4">
           <p className="text-sm text-green-700">مكتملة</p>
           <p className="text-2xl font-bold text-green-900">
-            {projects.filter(p => p.status === 'مكتمل').length}
+            {projects.filter((p: any) => p.status === 'مكتمل').length}
           </p>
         </div>
         <div className="bg-red-50 rounded-lg p-4">
           <p className="text-sm text-red-700">معلقة</p>
           <p className="text-2xl font-bold text-red-900">
-            {projects.filter(p => p.status === 'معلق').length}
+            {projects.filter((p: any) => p.status === 'معلق').length}
           </p>
         </div>
       </div>
