@@ -140,7 +140,7 @@ export default function ClientsPage() {
   };
 
   const handleDeleteClient = (id: number) => {
-    setClients(clients.filter(client => client.id !== id));
+    setClients(clients.filter((client: any) => client.id !== id));
     setDeleteConfirm(null);
   };
   return (
