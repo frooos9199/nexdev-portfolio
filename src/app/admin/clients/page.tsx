@@ -209,7 +209,7 @@ export default function ClientsPage() {
 
       {/* Clients Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {clients.map((client) => (
+        {clients.map((client: any) => (
           <div key={client.id} className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
