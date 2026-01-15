@@ -312,7 +312,7 @@ export default function ProjectsPage() {
                   <td className="py-4 px-6">
                     <div className="flex flex-wrap gap-1">
                       {Array.isArray(project.type) ? (
-                        project.type.map((t, index) => (
+                        project.type.map((t: string, index: number) => (
                           <span key={index} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
                             {t}
                           </span>
