@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes, FaGlobe } from 'react-icons/fa';
+import { FaBars, FaTimes, FaGlobe, FaUserShield } from 'react-icons/fa';
 import { useLanguage } from '@/contexts/LanguageContext';
+import Link from 'next/link';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,6 +61,18 @@ const Navigation = () => {
               </motion.a>
             ))}
             
+            {/* Admin Login Button */}
+            <Link href="/admin/login">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-all"
+              >
+                <FaUserShield />
+                <span>{t('لوحة التحكم', 'Admin')}</span>
+              </motion.button>
+            </Link>
+            
             {/* Language Toggle Button */}
             <motion.button
               onClick={toggleLanguage}
@@ -109,6 +122,17 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
+            
+            {/* Admin Login Mobile */}
+            <Link href="/admin/login">
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white font-semibold"
+              >
+                <FaUserShield />
+                <span>{t('لوحة التحكم', 'Admin Panel')}</span>
+              </button>
+            </Link>
           </motion.div>
         )}
       </div>
