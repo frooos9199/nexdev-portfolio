@@ -185,7 +185,7 @@ export default function ClientsPage() {
         <div className="bg-purple-50 rounded-lg p-4">
           <p className="text-sm text-purple-700">إجمالي الإيرادات</p>
           <p className="text-2xl font-bold text-purple-900">
-            {clients.reduce((sum, c) => {
+            {clients.reduce((sum: number, c: any) => {
               const revenue = parseFloat(c.totalRevenue?.replace(/[^\d.-]/g, '') || '0');
               return sum + revenue;
             }, 0).toLocaleString()} د.ك
