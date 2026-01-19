@@ -70,7 +70,7 @@ export default function PrivacyPolicy() {
 
             <section className="bg-gray-900 rounded-lg p-6 border border-gray-800">
               <h2 className="text-2xl font-semibold text-green-400 mb-4">
-                {isArabic ? 'حماية بيانات الأطفال' : 'Children\'s Data Protection'}
+                {isArabic ? 'حماية البيانات' : 'Data Protection'}
               </h2>
               <p>
                 {isArabic 
@@ -121,19 +121,19 @@ export default function PrivacyPolicy() {
               </h2>
               <p>
                 {isArabic 
-                  ? 'نتخذ جميع التدابير الأمنية المناسبة لضمان سلامة التطبيق وحماية الأطفال من أي محتوى غير مناسب أو مخاطر أمنية.'
-                  : 'We take all appropriate security measures to ensure app safety and protect children from inappropriate content or security risks.'}
+                  ? 'نتخذ جميع التدابير الأمنية المناسبة لضمان سلامة التطبيق وحماية المستخدمين من أي محتوى غير مناسب أو مخاطر أمنية.'
+                  : 'We take all appropriate security measures to ensure app safety and protect users from inappropriate content or security risks.'}
               </p>
             </section>
 
             <section className="bg-gray-900 rounded-lg p-6 border border-gray-800">
               <h2 className="text-2xl font-semibold text-indigo-400 mb-4">
-                {isArabic ? 'حقوق الوالدين' : 'Parental Rights'}
+                {isArabic ? 'حقوق المستخدمين' : 'User Rights'}
               </h2>
               <p>
                 {isArabic 
-                  ? 'للوالدين الحق في:'
-                  : 'Parents have the right to:'}
+                  ? 'للمستخدمين الحق في:'
+                  : 'Users have the right to:'}
               </p>
               <ul className="list-disc list-inside space-y-2 mt-3 mr-4">
                 <li>{isArabic ? 'مراجعة أي بيانات محفوظة محلياً' : 'Review any locally stored data'}</li>
@@ -174,42 +174,6 @@ export default function PrivacyPolicy() {
         </motion.div>
       </div>
       
-      <Footer />
-    </main>
-  );
-}licy from time to time. We will notify you of any changes by updating the app and the "Last Updated" date at the top of this policy.'}
-              </p>
-            </section>
-
-            <section className="bg-gray-900 rounded-lg p-6 border border-gray-800">
-              <h2 className="text-2xl font-semibold text-purple-400 mb-4">
-                {isArabic ? 'اتصل بنا' : 'Contact Us'}
-              </h2>
-              <p>
-                {isArabic 
-                  ? 'إذا كان لديك أي أسئلة حول سياسة الخصوصية هذه، يرجى التواصل معنا:'
-                  : 'If you have any questions about this Privacy Policy, please contact us:'}
-              </p>
-              <div className="mt-4 space-y-2">
-                <p><strong>{isArabic ? 'البريد الإلكتروني:' : 'Email:'}</strong> info@q8nexdev.com</p>
-                <p><strong>{isArabic ? 'الموقع الإلكتروني:' : 'Website:'}</strong> https://www.q8nexdev.com</p>
-              </div>
-            </section>
-
-            <section className="bg-gradient-to-r from-purple-900 to-pink-900 rounded-lg p-6 border border-purple-700">
-              <h2 className="text-2xl font-semibold text-white mb-4">
-                {isArabic ? '🛡️ التزامنا' : '🛡️ Our Commitment'}
-              </h2>
-              <p className="text-white">
-                {isArabic 
-                  ? 'نحن ملتزمون بتوفير بيئة آمنة وخالية من المخاطر للأطفال. خصوصية وسلامة أطفالك هي أولويتنا القصوى.'
-                  : 'We are committed to providing a safe and risk-free environment for children. Your children\'s privacy and safety is our top priority.'}
-              </p>
-            </section>
-          </div>
-        </motion.div>
-      </div>
-
       <Footer />
     </main>
   );
