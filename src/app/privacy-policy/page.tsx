@@ -25,18 +25,26 @@ export default function PrivacyPolicy() {
           
           <div className="text-gray-300 space-y-6" dir={isArabic ? 'rtl' : 'ltr'}>
             <p className="text-sm text-gray-400">
-              {isArabic ? 'آخر تحديث: 9 يناير 2026' : 'Last Updated: January 9, 2026'}
+              {isArabic ? 'آخر تحديث: 19 يناير 2026' : 'Last Updated: January 19, 2026'}
             </p>
 
             <section className="bg-gray-900 rounded-lg p-6 border border-gray-800">
               <h2 className="text-2xl font-semibold text-purple-400 mb-4">
                 {isArabic ? 'مقدمة' : 'Introduction'}
               </h2>
-              <p>
+              <p className="mb-4">
                 {isArabic 
-                  ? 'نحن ملتزمون بحماية خصوصية وسلامة الأطفال. تم تصميم تطبيقنا خصيصاً للأطفال ونتبع أعلى معايير حماية البيانات والخصوصية.'
-                  : 'We are committed to protecting the privacy and safety of children. Our app is designed specifically for children and follows the highest standards of data protection and privacy.'}
+                  ? 'هذه سياسة الخصوصية لتطبيقاتنا المقدمة من قبل Nexdev (q8nexdev). نحن ملتزمون بحماية خصوصية وسلامة الأطفال. تم تصميم تطبيقاتنا خصيصاً للأطفال ونتبع أعلى معايير حماية البيانات والخصوصية.'
+                  : 'This is the Privacy Policy for our applications provided by Nexdev (q8nexdev). We are committed to protecting the privacy and safety of children. Our apps are designed specifically for children and follow the highest standards of data protection and privacy.'}
               </p>
+              <div className="bg-gray-800 rounded p-4 border border-gray-700">
+                <p className="font-semibold text-white mb-2">
+                  {isArabic ? '📱 معلومات المطور' : '📱 Developer Information'}
+                </p>
+                <p><strong>{isArabic ? 'اسم المطور:' : 'Developer Name:'}</strong> Nexdev (q8nexdev)</p>
+                <p><strong>{isArabic ? 'الموقع الإلكتروني:' : 'Website:'}</strong> https://www.q8nexdev.com</p>
+                <p><strong>{isArabic ? 'البريد الإلكتروني:' : 'Email:'}</strong> info@q8nexdev.com</p>
+              </div>
             </section>
 
             <section className="bg-gray-900 rounded-lg p-6 border border-gray-800">
