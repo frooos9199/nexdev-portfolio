@@ -20,12 +20,12 @@ export default function PrivacyPolicy() {
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-            {isArabic ? 'سياسة الخصوصية' : 'Privacy Policy'}
+            {isArabic ? 'سياسة الخصوصية - Q8SHIFT' : 'Privacy Policy - Q8SHIFT'}
           </h1>
           
           <div className="text-gray-300 space-y-6" dir={isArabic ? 'rtl' : 'ltr'}>
             <p className="text-sm text-gray-400">
-              {isArabic ? 'آخر تحديث: 19 يناير 2026' : 'Last Updated: January 19, 2026'}
+              {isArabic ? 'آخر تحديث: 19 يناير 2025' : 'Last Updated: January 19, 2025'}
             </p>
 
             <section className="bg-gray-900 rounded-lg p-6 border border-gray-800">
@@ -34,16 +34,17 @@ export default function PrivacyPolicy() {
               </h2>
               <p className="mb-4">
                 {isArabic 
-                  ? 'هذه سياسة الخصوصية لتطبيقاتنا المقدمة من قبل Nexdev (q8nexdev). نحن ملتزمون بحماية خصوصية وسلامة الأطفال. تم تصميم تطبيقاتنا خصيصاً للأطفال ونتبع أعلى معايير حماية البيانات والخصوصية.'
-                  : 'This is the Privacy Policy for our applications provided by Nexdev (q8nexdev). We are committed to protecting the privacy and safety of children. Our apps are designed specifically for children and follow the highest standards of data protection and privacy.'}
+                  ? 'هذه سياسة الخصوصية لتطبيق Q8SHIFT المقدم من قبل المطور FERAS ALOTAIBI. نحن ملتزمون بحماية خصوصيتك وأمان بياناتك. تم تصميم تطبيقنا وفقاً لأعلى معايير حماية البيانات والخصوصية.'
+                  : 'This is the Privacy Policy for Q8SHIFT app provided by developer FERAS ALOTAIBI. We are committed to protecting your privacy and data security. Our app is designed according to the highest standards of data protection and privacy.'}
               </p>
               <div className="bg-gray-800 rounded p-4 border border-gray-700">
                 <p className="font-semibold text-white mb-2">
-                  {isArabic ? '📱 معلومات المطور' : '📱 Developer Information'}
+                  {isArabic ? '📱 معلومات التطبيق والمطور' : '📱 App and Developer Information'}
                 </p>
-                <p><strong>{isArabic ? 'اسم المطور:' : 'Developer Name:'}</strong> Nexdev (q8nexdev)</p>
-                <p><strong>{isArabic ? 'الموقع الإلكتروني:' : 'Website:'}</strong> https://www.q8nexdev.com</p>
-                <p><strong>{isArabic ? 'البريد الإلكتروني:' : 'Email:'}</strong> info@q8nexdev.com</p>
+                <p><strong>{isArabic ? 'اسم التطبيق:' : 'App Name:'}</strong> Q8SHIFT</p>
+                <p><strong>{isArabic ? 'اسم المطور:' : 'Developer Name:'}</strong> FERAS ALOTAIBI</p>
+                <p><strong>{isArabic ? 'رقم الهاتف:' : 'Phone:'}</strong> +965-50540999</p>
+                <p><strong>{isArabic ? 'البريد الإلكتروني:' : 'Email:'}</strong> summit_kw@hotmail.com</p>
               </div>
             </section>
 
@@ -53,8 +54,8 @@ export default function PrivacyPolicy() {
               </h2>
               <p className="mb-3">
                 {isArabic 
-                  ? 'تطبيقنا لا يجمع أي معلومات شخصية من الأطفال بما في ذلك:'
-                  : 'Our app does not collect any personal information from children including:'}
+                  ? 'تطبيق Q8SHIFT لا يجمع أي معلومات شخصية بما في ذلك:'
+                  : 'Q8SHIFT app does not collect any personal information including:'}
               </p>
               <ul className="list-disc list-inside space-y-2 mr-4">
                 <li>{isArabic ? 'الاسم الكامل' : 'Full name'}</li>
@@ -73,8 +74,8 @@ export default function PrivacyPolicy() {
               </h2>
               <p>
                 {isArabic 
-                  ? 'نلتزم بقانون حماية خصوصية الأطفال على الإنترنت (COPPA) وجميع القوانين المحلية والدولية المتعلقة بحماية خصوصية الأطفال. تطبيقنا:'
-                  : 'We comply with the Children\'s Online Privacy Protection Act (COPPA) and all local and international laws regarding children\'s privacy protection. Our app:'}
+                  ? 'نلتزم بجميع القوانين المحلية والدولية المتعلقة بحماية الخصوصية. تطبيق Q8SHIFT:'
+                  : 'We comply with all local and international laws regarding privacy protection. Q8SHIFT app:'}
               </p>
               <ul className="list-disc list-inside space-y-2 mt-3 mr-4">
                 <li>{isArabic ? 'لا يتطلب إنشاء حساب' : 'Does not require account creation'}</li>
@@ -150,6 +151,33 @@ export default function PrivacyPolicy() {
                 {isArabic 
                   ? 'قد نقوم بتحديث سياسة الخصوصية من وقت لآخر. سنقوم بإخطاركم بأي تغييرات من خلال تحديث التطبيق وتاريخ "آخر تحديث" في أعلى هذه السياسة.'
                   : 'We may update our Privacy Policy from time to time. We will notify you of any changes by updating the app and the "Last Updated" date at the top of this policy.'}
+              </p>
+            </section>
+
+            <section className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+              <h2 className="text-2xl font-semibold text-orange-400 mb-4">
+                {isArabic ? 'اتصل بنا' : 'Contact Us'}
+              </h2>
+              <p className="mb-4">
+                {isArabic 
+                  ? 'إذا كان لديك أي أسئلة أو استفسارات حول سياسة الخصوصية هذه، يرجى التواصل معنا:'
+                  : 'If you have any questions or concerns about this Privacy Policy, please contact us:'}
+              </p>
+              <div className="bg-gray-800 rounded p-4 border border-gray-700 space-y-2">
+                <p><strong>{isArabic ? 'التطبيق:' : 'App:'}</strong> Q8SHIFT</p>
+                <p><strong>{isArabic ? 'المطور:' : 'Developer:'}</strong> FERAS ALOTAIBI</p>
+                <p><strong>{isArabic ? 'البريد الإلكتروني:' : 'Email:'}</strong> summit_kw@hotmail.com</p>
+                <p><strong>{isArabic ? 'الهاتف:' : 'Phone:'}</strong> +965-50540999</p>
+              </div>
+            </section>
+          </div>
+        </motion.div>
+      </div>
+      
+      <Footer />
+    </main>
+  );
+}licy from time to time. We will notify you of any changes by updating the app and the "Last Updated" date at the top of this policy.'}
               </p>
             </section>
 
