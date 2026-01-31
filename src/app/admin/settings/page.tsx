@@ -8,7 +8,7 @@ export default function SettingsPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [companySettings, setCompanySettings] = useState({
     name: 'NexDev',
-    email: 'info@nexdev.com',
+    email: 'summit_kw@hotmail.com',
     phone: '+965 5054 0999',
     address: 'الكويت، العاصمة',
     description: 'شركة متخصصة في تطوير التطبيقات والمواقع الإلكترونية',

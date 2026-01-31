@@ -27,6 +27,7 @@ const Navigation = () => {
     { name: t('الخصوصية', 'Privacy'), href: '#privacy' },
     { name: t('سياسة الخصوصية', 'Privacy Policy'), href: '/privacy-policy' },
     { name: t('التواصل', 'Contact'), href: '#contact' },
+    { name: t('🤖 Q8 NeX DeV', '🤖 Q8 NeX DeV'), href: '/ai' },
   ];
 
   return (

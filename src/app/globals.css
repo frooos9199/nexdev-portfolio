@@ -137,3 +137,21 @@ body {
 @keyframes shimmer {
   to { left: 100%; }
 }
+
+/* Scrollbar Thin (for chat area) */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #764ba2;
+}

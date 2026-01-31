@@ -193,6 +193,38 @@ const Hero = () => {
           )}
         </motion.p>
 
+        {/* AI Assistant Box */}
+        <motion.a
+          href="/ai"
+          variants={itemVariants}
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          className="block max-w-md mx-auto mb-8 p-6 rounded-2xl bg-gradient-to-br from-purple-900/40 via-blue-900/40 to-pink-900/40 backdrop-blur-lg border-2 border-purple-500/50 shadow-2xl hover:shadow-purple-500/50 transition-all cursor-pointer group"
+        >
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="text-4xl"
+            >
+              🤖
+            </motion.div>
+            <h3 className="text-2xl font-bold gradient-text">
+              {t('تحدث مع Q8 NeX DeV', 'Talk to Q8 NeX DeV')}
+            </h3>
+          </div>
+          <p className="text-gray-300 text-center mb-2">
+            {t(
+              'احصل على استشارة فورية، تقدير أسعار، واستفسر عن خدماتنا',
+              'Get instant consultation, price estimates, and inquire about our services'
+            )}
+          </p>
+          <div className="flex items-center justify-center gap-2 text-sm text-purple-300">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            <span>{t('متصل الآن ⚡', 'Online Now ⚡')}</span>
+          </div>
+        </motion.a>
+
         {/* CTA Buttons with Enhanced Effects */}
         <motion.div
           variants={itemVariants}
