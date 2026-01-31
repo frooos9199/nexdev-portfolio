@@ -275,7 +275,7 @@ export async function POST(request: NextRequest) {
       confidence: aiResponse.confidence,
       sources,
       timestamp: new Date().toISOString(),
-      powered_by: 'Q8 NeX DeV Smart AI (100% Free)'
+      powered_by: 'Q8NeXDeV-AI by Feras Alotaibi (100% Free)'
     });
     
   } catch (error) {

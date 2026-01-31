@@ -210,7 +210,7 @@ const Hero = () => {
               🤖
             </motion.div>
             <h3 className="text-2xl font-bold gradient-text">
-              {t('تحدث مع Q8 NeX DeV', 'Talk to Q8 NeX DeV')}
+              {t('تحدث مع Q8NeXDeV-AI', 'Talk to Q8NeXDeV-AI')}
             </h3>
           </div>
           <p className="text-gray-300 text-center mb-2">
