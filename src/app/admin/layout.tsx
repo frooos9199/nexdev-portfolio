@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { FiHome, FiBriefcase, FiUsers, FiFileText, FiBarChart2, FiSettings, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiBriefcase, FiUsers, FiFileText, FiBarChart2, FiSettings, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
 import ProtectedRoute from '@/components/admin/ProtectedRoute';
 
 export default function AdminLayout({
@@ -10,6 +11,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -36,8 +38,26 @@ export default function AdminLayout({
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="fixed top-4 right-4 z-50 lg:hidden bg-gradient-to-r from-purple-600 to-blue-600 text-white p-3 rounded-lg shadow-lg"
+        >
+          {isSidebarOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
+        </button>
+
+        {/* Overlay */}
+        {isSidebarOpen && (
+          <div
+            onClick={() => setIsSidebarOpen(false)}
+            className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          />
+        )}
+
         {/* Sidebar */}
-        <aside className="fixed right-0 top-0 h-full w-64 bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900 text-white p-6 z-10 border-l border-purple-500/20">
+        <aside className={`fixed right-0 top-0 h-full w-64 bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900 text-white p-6 z-40 border-l border-purple-500/20 transform transition-transform duration-300 lg:translate-x-0 ${
+          isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
           <div className="mb-8">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">NexDev</h2>
             <p className="text-sm text-gray-400">لوحة التحكم</p>
@@ -134,7 +154,7 @@ export default function AdminLayout({
         </aside>
 
         {/* Main Content */}
-        <main className="mr-64 p-8">
+        <main className="lg:mr-64 p-4 sm:p-6 lg:p-8 pt-16 lg:pt-8">
           {children}
         </main>
       </div>

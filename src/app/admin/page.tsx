@@ -71,29 +71,29 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">لوحة التحكم</h1>
-        <p className="text-gray-600 mt-2">مرحباً بك في لوحة التحكم الرئيسية</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">لوحة التحكم</h1>
+        <p className="text-sm sm:text-base text-gray-600 mt-2">مرحباً بك في لوحة التحكم الرئيسية</p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {stats.map((stat, index) => (
           <StatsCard key={index} {...stat} />
         ))}
       </div>
 
       {/* Charts and Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Revenue Chart */}
         <div className="lg:col-span-2">
           <RevenueChart />
         </div>
 
         {/* Quick Stats */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">إحصائيات سريعة</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">

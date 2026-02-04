@@ -61,29 +61,29 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Success Message */}
       {showSuccess && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-bounce">
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg z-50 animate-bounce text-sm sm:text-base">
           ✓ تم حفظ الإعدادات بنجاح!
         </div>
       )}
 
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">الإعدادات</h1>
-        <p className="text-gray-600 mt-2">إدارة إعدادات النظام والحساب</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">الإعدادات</h1>
+        <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">إدارة إعدادات النظام والحساب</p>
       </div>
 
       {/* Settings Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Navigation */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">الأقسام</h3>
-          <nav className="space-y-2">
+        <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
+          <h3 className="font-semibold text-gray-900 mb-4 text-sm sm:text-base">الأقسام</h3>
+          <nav className="space-y-1 sm:space-y-2">
             <button 
               onClick={() => setActiveTab('company')}
-              className={`w-full text-right px-4 py-2 rounded-lg font-medium transition ${
+              className={`w-full text-right px-3 sm:px-4 py-2 rounded-lg font-medium transition text-sm sm:text-base ${
                 activeTab === 'company' ? 'bg-blue-50 text-blue-700' : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
@@ -91,7 +91,7 @@ export default function SettingsPage() {
             </button>
             <button 
               onClick={() => setActiveTab('account')}
-              className={`w-full text-right px-4 py-2 rounded-lg font-medium transition ${
+              className={`w-full text-right px-3 sm:px-4 py-2 rounded-lg font-medium transition text-sm sm:text-base ${
                 activeTab === 'account' ? 'bg-blue-50 text-blue-700' : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
@@ -99,7 +99,7 @@ export default function SettingsPage() {
             </button>
             <button 
               onClick={() => setActiveTab('notifications')}
-              className={`w-full text-right px-4 py-2 rounded-lg font-medium transition ${
+              className={`w-full text-right px-3 sm:px-4 py-2 rounded-lg font-medium transition text-sm sm:text-base ${
                 activeTab === 'notifications' ? 'bg-blue-50 text-blue-700' : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
@@ -107,7 +107,7 @@ export default function SettingsPage() {
             </button>
             <button 
               onClick={() => setActiveTab('backup')}
-              className={`w-full text-right px-4 py-2 rounded-lg font-medium transition ${
+              className={`w-full text-right px-3 sm:px-4 py-2 rounded-lg font-medium transition text-sm sm:text-base ${
                 activeTab === 'backup' ? 'bg-blue-50 text-blue-700' : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
@@ -117,77 +117,77 @@ export default function SettingsPage() {
         </div>
 
         {/* Content Area */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm p-6">
+        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm p-4 sm:p-6">
           {activeTab === 'company' && (
             <>
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">معلومات الشركة</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">معلومات الشركة</h3>
               
-              <form onSubmit={handleSaveSettings} className="space-y-4">
+              <form onSubmit={handleSaveSettings} className="space-y-3 sm:space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     اسم الشركة
                   </label>
                   <input
                     type="text"
                     value={companySettings.name}
                     onChange={(e) => setCompanySettings({ ...companySettings, name: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 text-sm sm:text-base"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                       البريد الإلكتروني
                     </label>
                     <input
                       type="email"
                       value={companySettings.email}
                       onChange={(e) => setCompanySettings({ ...companySettings, email: e.target.value })}
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 text-sm sm:text-base"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                       رقم الهاتف
                     </label>
                     <input
                       type="tel"
                       value={companySettings.phone}
                       onChange={(e) => setCompanySettings({ ...companySettings, phone: e.target.value })}
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 text-sm sm:text-base"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     العنوان
                   </label>
                   <input
                     type="text"
                     value={companySettings.address}
                     onChange={(e) => setCompanySettings({ ...companySettings, address: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 text-sm sm:text-base"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     الوصف
                   </label>
                   <textarea
                     rows={4}
                     value={companySettings.description}
                     onChange={(e) => setCompanySettings({ ...companySettings, description: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 text-sm sm:text-base"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                       الرقم الضريبي
                     </label>
                     <input
@@ -195,7 +195,7 @@ export default function SettingsPage() {
                       value={companySettings.taxNumber}
                       onChange={(e) => setCompanySettings({ ...companySettings, taxNumber: e.target.value })}
                       placeholder="123456789"
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 text-sm sm:text-base"
                     />
                   </div>
 
@@ -213,10 +213,10 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-3 sm:pt-4">
                   <button
                     type="submit"
-                    className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-xl transition"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg hover:shadow-xl transition text-sm sm:text-base"
                   >
                     <FiSave />
                     حفظ التغييرات
@@ -228,14 +228,14 @@ export default function SettingsPage() {
 
           {activeTab === 'account' && (
             <>
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">الحساب والأمان</h3>
-              <div className="space-y-4">
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <p className="text-sm text-blue-800">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">الحساب والأمان</h3>
+              <div className="space-y-3 sm:space-y-4">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+                  <p className="text-xs sm:text-sm text-blue-800">
                     البريد الإلكتروني المسجل: <strong>{typeof window !== 'undefined' ? localStorage.getItem('adminEmail') : ''}</strong>
                   </p>
                 </div>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-xs sm:text-sm">
                   لتغيير كلمة المرور أو تحديث معلومات الحساب، يرجى التواصل مع المطور.
                 </p>
               </div>

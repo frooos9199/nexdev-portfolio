@@ -122,6 +122,22 @@ export default function InvoicesPage() {
     setEditingInvoice(null);
   };
 
+  return (
+    <div className="space-y-4 sm:space-y-6">
+      {showSuccess && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg z-50 animate-bounce text-sm sm:text-base">
+          ✓ تمت العملية بنجاح!
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">إدارة الفواتير</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">الفواتير وسندات القبض</p>
+        </div>
+      </div>
+
   const handleSaveReceipt = (e: React.FormEvent) => {
     e.preventDefault();
     

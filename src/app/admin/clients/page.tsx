@@ -144,28 +144,28 @@ export default function ClientsPage() {
     setDeleteConfirm(null);
   };
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Success Message */}
       {showSuccess && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-bounce">
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg z-50 animate-bounce text-sm sm:text-base">
           {successMessage}
         </div>
       )}
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">إدارة العملاء</h1>
-          <p className="text-gray-600 mt-2">قاعدة بيانات العملاء والتواصل</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">إدارة العملاء</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">قاعدة بيانات العملاء والتواصل</p>
         </div>
-        <button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg hover:shadow-xl transition-all">
+        <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:shadow-xl transition-all text-sm sm:text-base">
           <FiPlus />
           <span>عميل جديد</span>
         </button>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-lg p-4 shadow-sm">
           <p className="text-sm text-gray-600">إجمالي العملاء</p>
           <p className="text-2xl font-bold text-gray-800">{clients.length}</p>
