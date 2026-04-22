@@ -147,6 +147,16 @@ const Projects = () => {
   
   const projects = [
     {
+      titleAr: 'Daleel Q8 Go',
+      titleEn: 'Daleel Q8 Go',
+      descriptionAr: 'تطبيق لاكتشاف الأماكن والمطاعم والفنادق والعروض في الكويت مع صفحة تعريفية وروابط قانونية مستقلة.',
+      descriptionEn: 'Kuwait discovery app for places, restaurants, hotels, and offers with a dedicated website and legal pages.',
+      tech: ['Swift', 'iOS', 'Location Discovery', 'Offers'],
+      image: '📍',
+      github: '#',
+      demo: 'https://apps.apple.com/us/app/daleel-q8-go/id6759099784',
+    },
+    {
       titleAr: 'Q8SHIFT',
       titleEn: 'Q8SHIFT',
       descriptionAr: 'تطبيق احترافي مخصص لموظفي الجمارك الكويتية لإدارة المناوبات والجداول',

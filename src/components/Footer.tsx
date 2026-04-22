@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaTwitter, FaHeart } from 'react-icons/fa';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -15,12 +16,13 @@ const Footer = () => {
   ];
 
   const footerLinks = [
-    { nameAr: 'الرئيسية', nameEn: 'Home', href: '#home' },
-    { nameAr: 'المشاريع', nameEn: 'Projects', href: '#projects' },
-    { nameAr: 'المهارات', nameEn: 'Skills', href: '#skills' },
-    { nameAr: 'الأسعار', nameEn: 'Pricing', href: '#pricing' },
-    { nameAr: 'الخصوصية', nameEn: 'Privacy', href: '#privacy' },
-    { nameAr: 'التواصل', nameEn: 'Contact', href: '#contact' },
+    { nameAr: 'الرئيسية', nameEn: 'Home', href: '/#home' },
+    { nameAr: 'المشاريع', nameEn: 'Projects', href: '/#projects' },
+    { nameAr: 'التطبيقات', nameEn: 'Apps', href: '/apps' },
+    { nameAr: 'المهارات', nameEn: 'Skills', href: '/#skills' },
+    { nameAr: 'الأسعار', nameEn: 'Pricing', href: '/#pricing' },
+    { nameAr: 'الخصوصية', nameEn: 'Privacy', href: '/#privacy' },
+    { nameAr: 'التواصل', nameEn: 'Contact', href: '/#contact' },
   ];
 
   return (
@@ -53,14 +55,14 @@ const Footer = () => {
             <h4 className="text-white font-semibold mb-4">{t('روابط سريعة', 'Quick Links')}</h4>
             <div className="flex flex-wrap justify-center gap-4">
               {footerLinks.map((link, index) => (
-                <motion.a
-                  key={index}
-                  href={link.href}
-                  whileHover={{ scale: 1.1, color: '#667eea' }}
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  {t(link.nameAr, link.nameEn)}
-                </motion.a>
+                <Link key={index} href={link.href} className="block">
+                  <motion.span
+                    whileHover={{ scale: 1.1, color: '#667eea' }}
+                    className="block text-gray-400 transition-colors hover:text-white"
+                  >
+                    {t(link.nameAr, link.nameEn)}
+                  </motion.span>
+                </Link>
               ))}
             </div>
           </motion.div>

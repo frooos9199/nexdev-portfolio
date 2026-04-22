@@ -20,13 +20,14 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: t('الرئيسية', 'Home'), href: '#home' },
-    { name: t('المشاريع', 'Projects'), href: '#projects' },
-    { name: t('المهارات', 'Skills'), href: '#skills' },
-    { name: t('الأسعار', 'Pricing'), href: '#pricing' },
-    { name: t('الخصوصية', 'Privacy'), href: '#privacy' },
+    { name: t('الرئيسية', 'Home'), href: '/#home' },
+    { name: t('المشاريع', 'Projects'), href: '/#projects' },
+    { name: t('التطبيقات', 'Apps'), href: '/apps' },
+    { name: t('المهارات', 'Skills'), href: '/#skills' },
+    { name: t('الأسعار', 'Pricing'), href: '/#pricing' },
+    { name: t('الخصوصية', 'Privacy'), href: '/#privacy' },
     { name: t('سياسة الخصوصية', 'Privacy Policy'), href: '/privacy-policy' },
-    { name: t('التواصل', 'Contact'), href: '#contact' },
+    { name: t('التواصل', 'Contact'), href: '/#contact' },
     { name: t('🤖 Q8NeXDeV-AI', '🤖 Q8NeXDeV-AI'), href: '/ai' },
   ];
 
@@ -52,14 +53,14 @@ const Navigation = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8 space-x-reverse gap-4">
             {navItems.map((item, index) => (
-              <motion.a
-                key={index}
-                href={item.href}
-                whileHover={{ scale: 1.1, color: '#667eea' }}
-                className="text-gray-300 hover:text-white transition-colors cursor-pointer"
-              >
-                {item.name}
-              </motion.a>
+              <Link key={index} href={item.href} className="block">
+                <motion.span
+                  whileHover={{ scale: 1.1, color: '#667eea' }}
+                  className="block cursor-pointer text-gray-300 transition-colors hover:text-white"
+                >
+                  {item.name}
+                </motion.span>
+              </Link>
             ))}
             
             {/* Admin Login Button */}
@@ -114,14 +115,14 @@ const Navigation = () => {
             className="md:hidden mt-4 space-y-4"
           >
             {navItems.map((item, index) => (
-              <a
+              <Link
                 key={index}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-gray-300 hover:text-white transition-colors py-2"
+                className="block py-2 text-gray-300 transition-colors hover:text-white"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
             
             {/* Admin Login Mobile */}
