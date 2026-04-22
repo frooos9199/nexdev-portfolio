@@ -17,7 +17,7 @@ By using Daleel Q8 Go, you agree to the practices described in this policy.
 
 ## Information We May Process
 
-Depending on the features you use, Daleel Q8 may process the following categories of information:
+Depending on the features you use, Daleel Q8 Go may process the following categories of information:
 
 - Search terms and in-app discovery activity used to return relevant places and offers.
 - Favorites, saved places, and user preferences stored to improve your experience.
