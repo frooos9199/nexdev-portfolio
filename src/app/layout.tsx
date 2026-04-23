@@ -3,9 +3,9 @@ import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 export const metadata: Metadata = {
-  title: "NexDev | Professional Apps & Web Developer",
-  description: "NexDev - Professional applications and websites developer from Kuwait",
-  keywords: "NexDev, developer, apps, websites, kuwait, programming, development",
+  title: "Q8 NexDev | Apps Hub",
+  description: "Q8 NexDev is a structured hub for apps, product pages, legal routes, and support links.",
+  keywords: "Q8 NexDev, apps hub, kuwait apps, product pages, privacy policy, support links",
 };
 
 export default function RootLayout({

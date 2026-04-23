@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes, FaGlobe, FaUserShield } from 'react-icons/fa';
+import { FaBars, FaTimes, FaGlobe } from 'react-icons/fa';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
 
@@ -21,14 +21,10 @@ const Navigation = () => {
 
   const navItems = [
     { name: t('الرئيسية', 'Home'), href: '/#home' },
-    { name: t('المشاريع', 'Projects'), href: '/#projects' },
     { name: t('التطبيقات', 'Apps'), href: '/apps' },
-    { name: t('المهارات', 'Skills'), href: '/#skills' },
-    { name: t('الأسعار', 'Pricing'), href: '/#pricing' },
-    { name: t('الخصوصية', 'Privacy'), href: '/#privacy' },
-    { name: t('سياسة الخصوصية', 'Privacy Policy'), href: '/privacy-policy' },
+    { name: t('الخدمات', 'Services'), href: '/#services' },
+    { name: t('عنّا', 'About'), href: '/#about' },
     { name: t('التواصل', 'Contact'), href: '/#contact' },
-    { name: t('🤖 Q8NeXDeV-AI', '🤖 Q8NeXDeV-AI'), href: '/ai' },
   ];
 
   return (
@@ -37,59 +33,54 @@ const Navigation = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-black/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+        isScrolled ? 'border-b border-white/10 bg-gray-950/88 backdrop-blur-xl shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold gradient-text cursor-pointer"
-          >
-            {t('NexDev', 'NexDev')}
-          </motion.div>
+          <Link href="/" className="block">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              className="cursor-pointer"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300">Q8 NexDev</p>
+              <p className="mt-1 text-lg font-semibold text-white">{t('بوابة التطبيقات', 'Apps Hub')}</p>
+            </motion.div>
+          </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8 space-x-reverse gap-4">
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item, index) => (
               <Link key={index} href={item.href} className="block">
                 <motion.span
-                  whileHover={{ scale: 1.1, color: '#667eea' }}
-                  className="block cursor-pointer text-gray-300 transition-colors hover:text-white"
+                  whileHover={{ y: -1 }}
+                  className="block cursor-pointer text-sm font-medium text-gray-300 transition-colors hover:text-white"
                 >
                   {item.name}
                 </motion.span>
               </Link>
             ))}
-            
-            {/* Admin Login Button */}
-            <Link href="/admin/login">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-all"
-              >
-                <FaUserShield />
-                <span>{t('لوحة التحكم', 'Admin')}</span>
-              </motion.button>
-            </Link>
-            
-            {/* Language Toggle Button */}
+
             <motion.button
               onClick={toggleLanguage}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full text-white text-sm font-semibold"
+              className="flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200"
             >
               <FaGlobe />
               <span>{language === 'ar' ? 'EN' : 'ع'}</span>
             </motion.button>
+
+            <Link href="/apps" className="block">
+              <motion.span
+                whileHover={{ scale: 1.03 }}
+                className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-gray-950 transition hover:bg-cyan-300"
+              >
+                {t('استعراض التطبيقات', 'View apps')}
+              </motion.span>
+            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="flex items-center gap-3 md:hidden">
-            {/* Language Toggle Mobile */}
             <motion.button
               onClick={toggleLanguage}
               whileTap={{ scale: 0.9 }}
@@ -97,7 +88,7 @@ const Navigation = () => {
             >
               <FaGlobe />
             </motion.button>
-            
+
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-white text-2xl"
@@ -107,32 +98,31 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden mt-4 space-y-4"
+            className="mt-4 rounded-3xl border border-white/10 bg-gray-950/95 p-4 md:hidden"
           >
-            {navItems.map((item, index) => (
-              <Link
-                key={index}
-                href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block py-2 text-gray-300 transition-colors hover:text-white"
-              >
-                {item.name}
-              </Link>
-            ))}
-            
-            {/* Admin Login Mobile */}
-            <Link href="/admin/login">
+            <div className="space-y-3">
+              {navItems.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block rounded-2xl px-3 py-3 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+
+            <Link href="/apps">
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white font-semibold"
+                className="mt-4 w-full rounded-2xl bg-white px-4 py-3 font-semibold text-gray-950"
               >
-                <FaUserShield />
-                <span>{t('لوحة التحكم', 'Admin Panel')}</span>
+                <span>{t('استعراض التطبيقات', 'View apps')}</span>
               </button>
             </Link>
           </motion.div>
