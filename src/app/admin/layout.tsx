@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { FiHome, FiBriefcase, FiUsers, FiFileText, FiBarChart2, FiSettings, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { FiHome, FiBriefcase, FiUsers, FiFileText, FiBarChart2, FiSettings, FiLogOut, FiMenu, FiX, FiSmartphone } from 'react-icons/fi';
 import ProtectedRoute from '@/components/admin/ProtectedRoute';
 
 export default function AdminLayout({
@@ -55,7 +55,7 @@ export default function AdminLayout({
         )}
 
         {/* Sidebar */}
-        <aside className={`fixed right-0 top-0 h-full w-64 bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900 text-white p-6 z-40 border-l border-purple-500/20 transform transition-transform duration-300 lg:translate-x-0 ${
+        <aside className={`fixed right-0 top-0 z-40 flex h-full w-64 transform flex-col overflow-y-auto border-l border-purple-500/20 bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900 p-6 text-white transition-transform duration-300 lg:translate-x-0 ${
           isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
           <div className="mb-8">
@@ -63,7 +63,7 @@ export default function AdminLayout({
             <p className="text-sm text-gray-400">لوحة التحكم</p>
           </div>
 
-          <nav className="space-y-2">
+          <nav className="space-y-2 pb-6">
             <Link 
               href="/admin" 
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
@@ -97,7 +97,19 @@ export default function AdminLayout({
               }`}
             >
               <FiUsers className="text-xl" />
-              <span>العملاء</span>
+              <span>الشركات/العملاء</span>
+            </Link>
+            
+            <Link 
+              href="/admin/apps" 
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
+                isActive('/admin/apps') 
+                  ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg' 
+                  : 'hover:bg-gray-800/50'
+              }`}
+            >
+              <FiSmartphone className="text-xl" />
+              <span>التطبيقات</span>
             </Link>
             
             <Link 
@@ -137,7 +149,7 @@ export default function AdminLayout({
             </Link>
           </nav>
 
-          <div className="absolute bottom-6 right-6 left-6 space-y-3">
+          <div className="mt-auto space-y-3 pt-4">
             <button 
               onClick={handleLogout}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-600/10 hover:bg-gradient-to-r hover:from-red-600 hover:to-pink-600 transition text-right border border-red-500/30"

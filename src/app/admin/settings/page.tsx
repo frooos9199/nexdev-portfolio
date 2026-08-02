@@ -41,6 +41,7 @@ export default function SettingsPage() {
         projects: JSON.parse(localStorage.getItem('projects') || '[]'),
         clients: JSON.parse(localStorage.getItem('clients') || '[]'),
         invoices: JSON.parse(localStorage.getItem('invoices') || '[]'),
+        apps: JSON.parse(localStorage.getItem('adminApps') || '[]'),
         settings: companySettings
       };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });

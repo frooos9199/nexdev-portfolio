@@ -1,10 +1,12 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaComments, FaGlobe, FaShieldAlt, FaStore, FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { apps } from '@/data/apps';
+import { mergeApps, readManagedApps } from '@/lib/appRegistry';
 
 const trustPoints = [
   {
@@ -53,7 +55,12 @@ const servicePoints = [
 
 export default function HomeLanding() {
   const { language, t } = useLanguage();
-  const featuredApps = apps.slice(0, 3);
+  const [displayApps, setDisplayApps] = useState(apps);
+  const featuredApps = displayApps.slice(0, 3);
+
+  useEffect(() => {
+    setDisplayApps(mergeApps(apps, readManagedApps()));
+  }, []);
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">
@@ -102,7 +109,7 @@ export default function HomeLanding() {
 
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
               {[
-                { value: `${apps.length}+`, ar: 'تطبيقات وصفحات مرتبطة', en: 'apps and linked pages' },
+                { value: `${displayApps.length}+`, ar: 'تطبيقات وصفحات مرتبطة', en: 'apps and linked pages' },
                 { value: '1', ar: 'هوية موحدة', en: 'unified presence' },
                 { value: '24/7', ar: 'روابط دعم جاهزة', en: 'ready support links' },
               ].map((item) => (
