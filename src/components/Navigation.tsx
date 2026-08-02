@@ -25,6 +25,7 @@ const Navigation = () => {
     { name: t('الخدمات', 'Services'), href: '/#services' },
     { name: t('عنّا', 'About'), href: '/#about' },
     { name: t('التواصل', 'Contact'), href: '/#contact' },
+    { name: t('دخول الإدارة', 'Admin Login'), href: '/admin/login' },
   ];
 
   return (
