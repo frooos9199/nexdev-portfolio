@@ -2,7 +2,9 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { cloneDefaultMenu, MENU_STORAGE_KEY, MenuLanguage, MenuSection } from '@/data/menu';
+import { cloneDefaultMenu, MENU_LOGO_STORAGE_KEY, MENU_STORAGE_KEY, MenuLanguage, MenuSection } from '@/data/menu';
+
+const DEFAULT_LOGO = '/hokah-mood-logo.svg';
 
 const copy = {
   ar: { title: 'Hokah MooD', currency: 'د.ك', language: 'English' },
@@ -23,11 +25,16 @@ const loadMenu = () => {
 export default function MenuClient() {
   const [language, setLanguage] = useState<MenuLanguage>('ar');
   const [sections, setSections] = useState<MenuSection[]>(cloneDefaultMenu);
+  const [logo, setLogo] = useState(DEFAULT_LOGO);
 
   useEffect(() => {
     setSections(loadMenu());
+    setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
 
-    const syncMenu = () => setSections(loadMenu());
+    const syncMenu = () => {
+      setSections(loadMenu());
+      setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
+    };
     window.addEventListener('storage', syncMenu);
     window.addEventListener('menu-updated', syncMenu);
     return () => {
@@ -51,11 +58,12 @@ export default function MenuClient() {
       <header className="relative overflow-hidden border-b border-[#d5b46b]/20 bg-[radial-gradient(circle_at_top,rgba(213,180,107,0.12),transparent_58%)]">
         <div className="mx-auto flex max-w-5xl flex-col items-center px-5 pb-9 pt-9 text-center sm:pb-12 sm:pt-12">
         <Image
-          src="/hokah-mood-logo.svg"
+          src={logo}
           alt={copy[language].title}
           width={180}
           height={180}
           priority
+          unoptimized
           className="mb-5 h-36 w-36 object-contain sm:h-44 sm:w-44"
         />
         <p className="mb-2 text-xs font-semibold uppercase text-[#d5b46b]">Menu</p>

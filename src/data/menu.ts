@@ -20,6 +20,7 @@ export type MenuSection = {
 };
 
 export const MENU_STORAGE_KEY = 'harborMenu';
+export const MENU_LOGO_STORAGE_KEY = 'hokahMoodLogo';
 
 const item = (id: string, ar: string, en: string, price: number, noteAr?: string, noteEn?: string): MenuItem => ({
   id,

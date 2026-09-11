@@ -1,8 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FiPlus, FiSave, FiTrash2 } from 'react-icons/fi';
-import { cloneDefaultMenu, MENU_STORAGE_KEY, MenuSection } from '@/data/menu';
+import Image from 'next/image';
+import { FiImage, FiPlus, FiSave, FiTrash2 } from 'react-icons/fi';
+import { cloneDefaultMenu, MENU_LOGO_STORAGE_KEY, MENU_STORAGE_KEY, MenuSection } from '@/data/menu';
+
+const DEFAULT_LOGO = '/hokah-mood-logo.svg';
 
 const createId = (prefix: string) => `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 
@@ -19,11 +22,38 @@ const loadMenu = () => {
 
 export default function MenuAdminPage() {
   const [sections, setSections] = useState<MenuSection[]>(cloneDefaultMenu);
+  const [logo, setLogo] = useState(DEFAULT_LOGO);
+  const [logoError, setLogoError] = useState('');
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     setSections(loadMenu());
+    setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
   }, []);
+
+  const changeLogo = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setLogoError('اختر ملف صورة فقط');
+      return;
+    }
+
+    if (file.size > 1024 * 1024) {
+      setLogoError('حجم الصورة يجب ألا يتجاوز 1 ميجابايت');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        setLogo(reader.result);
+        setLogoError('');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   const updateSection = (sectionIndex: number, field: 'group' | 'name', language: 'ar' | 'en', value: string) => {
     setSections((current) => current.map((section, index) => (
@@ -89,6 +119,11 @@ export default function MenuAdminPage() {
 
   const saveMenu = () => {
     localStorage.setItem(MENU_STORAGE_KEY, JSON.stringify(sections));
+    if (logo === DEFAULT_LOGO) {
+      localStorage.removeItem(MENU_LOGO_STORAGE_KEY);
+    } else {
+      localStorage.setItem(MENU_LOGO_STORAGE_KEY, logo);
+    }
     window.dispatchEvent(new Event('menu-updated'));
     setSaved(true);
     window.setTimeout(() => setSaved(false), 2500);
@@ -126,6 +161,45 @@ export default function MenuAdminPage() {
           </button>
         </div>
       </div>
+
+      <section className="rounded-md border border-gray-200 bg-white p-5 shadow-sm">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+          <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-md bg-black p-2">
+            <Image
+              src={logo}
+              alt="شعار Hokah MooD"
+              width={120}
+              height={120}
+              unoptimized
+              className="h-full w-full object-contain"
+            />
+          </div>
+          <div className="flex-1">
+            <h2 className="text-lg font-bold text-gray-900">شعار المنيو</h2>
+            <p className="mt-1 text-sm text-gray-600">اختر صورة PNG أو JPG أو SVG بحجم لا يتجاوز 1 ميجابايت</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <label className="flex cursor-pointer items-center gap-2 rounded-md bg-gray-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800">
+                <FiImage />
+                تغيير الشعار
+                <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={changeLogo} className="sr-only" />
+              </label>
+              {logo !== DEFAULT_LOGO && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLogo(DEFAULT_LOGO);
+                    setLogoError('');
+                  }}
+                  className="rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 transition hover:bg-gray-50"
+                >
+                  استعادة الشعار الأساسي
+                </button>
+              )}
+            </div>
+            {logoError && <p className="mt-2 text-sm font-medium text-red-600">{logoError}</p>}
+          </div>
+        </div>
+      </section>
 
       <div className="space-y-5">
         {sections.map((section, sectionIndex) => (
