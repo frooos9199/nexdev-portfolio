@@ -19,11 +19,11 @@ export default function LoginPage() {
     const response = await fetch('/api/admin/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: email.trim(), password }),
     });
 
     if (response.ok) {
-      localStorage.setItem('adminEmail', email);
+      localStorage.setItem('adminEmail', email.trim().toLowerCase());
       router.push('/admin');
     } else {
       setError('البريد الإلكتروني أو كلمة المرور غير صحيحة');
@@ -61,6 +61,8 @@ export default function LoginPage() {
               <FiMail className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="email"
+                autoComplete="email"
+                autoCapitalize="none"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 font-medium"
@@ -78,6 +80,7 @@ export default function LoginPage() {
               <FiLock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 font-medium"
