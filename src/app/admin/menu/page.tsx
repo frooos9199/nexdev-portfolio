@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { FiImage, FiPlus, FiSave, FiTrash2 } from 'react-icons/fi';
+import { FiChevronDown, FiChevronUp, FiImage, FiPlus, FiSave, FiTrash2 } from 'react-icons/fi';
 import { cloneDefaultMenu, MENU_LOGO_STORAGE_KEY, MENU_STORAGE_KEY, MenuSection } from '@/data/menu';
 
 const DEFAULT_LOGO = '/hokah-mood-logo.svg';
@@ -102,6 +102,52 @@ export default function MenuAdminPage() {
           return { ...menuItem, name: { ...menuItem.name, [field]: value } };
         }),
       };
+    }));
+  };
+
+  const toggleItemNote = (sectionIndex: number, itemIndex: number, enabled: boolean) => {
+    setSections((current) => current.map((section, currentSectionIndex) => {
+      if (currentSectionIndex !== sectionIndex) return section;
+
+      return {
+        ...section,
+        items: section.items.map((menuItem, currentItemIndex) => {
+          if (currentItemIndex !== itemIndex) return menuItem;
+          if (!enabled) {
+            const { note: _note, ...itemWithoutNote } = menuItem;
+            return itemWithoutNote;
+          }
+          return { ...menuItem, note: { ar: '', en: '' } };
+        }),
+      };
+    }));
+  };
+
+  const updateItemNote = (sectionIndex: number, itemIndex: number, language: 'ar' | 'en', value: string) => {
+    setSections((current) => current.map((section, currentSectionIndex) => (
+      currentSectionIndex === sectionIndex
+        ? {
+            ...section,
+            items: section.items.map((menuItem, currentItemIndex) => (
+              currentItemIndex === itemIndex
+                ? { ...menuItem, note: { ar: '', en: '', ...menuItem.note, [language]: value } }
+                : menuItem
+            )),
+          }
+        : section
+    )));
+  };
+
+  const moveItem = (sectionIndex: number, itemIndex: number, direction: -1 | 1) => {
+    setSections((current) => current.map((section, currentSectionIndex) => {
+      if (currentSectionIndex !== sectionIndex) return section;
+
+      const targetIndex = itemIndex + direction;
+      if (targetIndex < 0 || targetIndex >= section.items.length) return section;
+
+      const items = [...section.items];
+      [items[itemIndex], items[targetIndex]] = [items[targetIndex], items[itemIndex]];
+      return { ...section, items };
     }));
   };
 
@@ -304,55 +350,110 @@ export default function MenuAdminPage() {
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[700px] text-sm">
+              <table className="w-full min-w-[850px] text-sm">
                 <thead>
                   <tr className="border-b border-gray-200 text-gray-500">
                     <th className="px-4 py-3 text-right font-medium">الصنف بالعربي</th>
                     <th className="px-4 py-3 text-left font-medium">Item in English</th>
                     <th className="w-40 px-4 py-3 text-right font-medium">السعر د.ك</th>
-                    <th className="w-16 px-3 py-3"><span className="sr-only">حذف</span></th>
+                    <th className="w-24 px-3 py-3 text-center font-medium">ملاحظة</th>
+                    <th className="w-32 px-3 py-3"><span className="sr-only">ترتيب وحذف</span></th>
                   </tr>
                 </thead>
                 <tbody>
                   {section.items.map((menuItem, itemIndex) => (
-                    <tr key={menuItem.id} className="border-b border-gray-100 last:border-0">
-                      <td className="p-3">
-                        <input
-                          value={menuItem.name.ar}
-                          onChange={(event) => updateItem(sectionIndex, itemIndex, 'ar', event.target.value)}
-                          className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-gray-900"
-                        />
-                      </td>
-                      <td className="p-3">
-                        <input
-                          dir="ltr"
-                          value={menuItem.name.en}
-                          onChange={(event) => updateItem(sectionIndex, itemIndex, 'en', event.target.value)}
-                          className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-gray-900"
-                        />
-                      </td>
-                      <td className="p-3">
-                        <input
-                          dir="ltr"
-                          type="number"
-                          min="0"
-                          step="0.001"
-                          value={menuItem.price}
-                          onChange={(event) => updateItem(sectionIndex, itemIndex, 'price', event.target.value)}
-                          className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-gray-900"
-                        />
-                      </td>
-                      <td className="p-3">
-                        <button
-                          type="button"
-                          onClick={() => removeItem(sectionIndex, itemIndex)}
-                          title="حذف الصنف"
-                          className="flex h-9 w-9 items-center justify-center rounded-md text-red-600 transition hover:bg-red-50"
-                        >
-                          <FiTrash2 />
-                        </button>
-                      </td>
-                    </tr>
+                    <Fragment key={menuItem.id}>
+                      <tr className={menuItem.note ? 'bg-gray-50' : 'border-b border-gray-100'}>
+                        <td className="p-3">
+                          <input
+                            value={menuItem.name.ar}
+                            onChange={(event) => updateItem(sectionIndex, itemIndex, 'ar', event.target.value)}
+                            className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-gray-900"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            dir="ltr"
+                            value={menuItem.name.en}
+                            onChange={(event) => updateItem(sectionIndex, itemIndex, 'en', event.target.value)}
+                            className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-gray-900"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            dir="ltr"
+                            type="number"
+                            min="0"
+                            step="0.001"
+                            value={menuItem.price}
+                            onChange={(event) => updateItem(sectionIndex, itemIndex, 'price', event.target.value)}
+                            className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-gray-900"
+                          />
+                        </td>
+                        <td className="p-3 text-center">
+                          <input
+                            type="checkbox"
+                            checked={Boolean(menuItem.note)}
+                            onChange={(event) => toggleItemNote(sectionIndex, itemIndex, event.target.checked)}
+                            aria-label="تفعيل ملاحظة للصنف"
+                            className="h-5 w-5 accent-gray-950"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <div className="flex items-center justify-end gap-1">
+                            <button
+                              type="button"
+                              onClick={() => moveItem(sectionIndex, itemIndex, -1)}
+                              disabled={itemIndex === 0}
+                              title="نقل الصنف للأعلى"
+                              className="flex h-9 w-9 items-center justify-center rounded-md text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-25"
+                            >
+                              <FiChevronUp />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => moveItem(sectionIndex, itemIndex, 1)}
+                              disabled={itemIndex === section.items.length - 1}
+                              title="نقل الصنف للأسفل"
+                              className="flex h-9 w-9 items-center justify-center rounded-md text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-25"
+                            >
+                              <FiChevronDown />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => removeItem(sectionIndex, itemIndex)}
+                              title="حذف الصنف"
+                              className="flex h-9 w-9 items-center justify-center rounded-md text-red-600 transition hover:bg-red-50"
+                            >
+                              <FiTrash2 />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      {menuItem.note && (
+                        <tr className="border-b border-gray-200 bg-gray-50">
+                          <td colSpan={2} className="px-3 pb-3">
+                            <textarea
+                              value={menuItem.note.ar}
+                              onChange={(event) => updateItemNote(sectionIndex, itemIndex, 'ar', event.target.value)}
+                              placeholder="الملاحظة بالعربي"
+                              rows={2}
+                              className="w-full resize-y rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none focus:border-gray-900"
+                            />
+                          </td>
+                          <td colSpan={3} className="px-3 pb-3">
+                            <textarea
+                              dir="ltr"
+                              value={menuItem.note.en}
+                              onChange={(event) => updateItemNote(sectionIndex, itemIndex, 'en', event.target.value)}
+                              placeholder="Note in English"
+                              rows={2}
+                              className="w-full resize-y rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none focus:border-gray-900"
+                            />
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
                   ))}
                 </tbody>
               </table>
