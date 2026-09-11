@@ -166,6 +166,7 @@ export default function MenuAdminPage() {
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-md bg-black p-2">
             <Image
+              key={logo}
               src={logo}
               alt="شعار Hokah MooD"
               width={120}
