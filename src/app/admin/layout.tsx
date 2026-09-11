@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { FiHome, FiBriefcase, FiUsers, FiFileText, FiBarChart2, FiSettings, FiLogOut, FiMenu, FiX, FiSmartphone } from 'react-icons/fi';
+import { FiHome, FiBriefcase, FiUsers, FiFileText, FiBarChart2, FiSettings, FiLogOut, FiMenu, FiX, FiSmartphone, FiCoffee } from 'react-icons/fi';
 import ProtectedRoute from '@/components/admin/ProtectedRoute';
 
 export default function AdminLayout({
@@ -110,6 +110,18 @@ export default function AdminLayout({
             >
               <FiSmartphone className="text-xl" />
               <span>التطبيقات</span>
+            </Link>
+
+            <Link
+              href="/admin/menu"
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
+                isActive('/admin/menu')
+                  ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
+                  : 'hover:bg-gray-800/50'
+              }`}
+            >
+              <FiCoffee className="text-xl" />
+              <span>المنيو</span>
             </Link>
             
             <Link 

@@ -1,0 +1,15 @@
+<svg width="360" height="360" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="180" cy="180" r="166" stroke="#D5B46B" stroke-width="4"/>
+  <circle cx="180" cy="180" r="150" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="2"/>
+  <path d="M139 91C119 73 128 51 151 39C137 59 145 72 159 82C174 94 174 111 160 124" stroke="#D5B46B" stroke-width="8" stroke-linecap="round"/>
+  <path d="M180 83C160 65 169 43 192 31C178 51 186 64 200 74C215 86 215 103 201 116" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+  <path d="M221 91C201 73 210 51 233 39C219 59 227 72 241 82C256 94 256 111 242 124" stroke="#D5B46B" stroke-width="8" stroke-linecap="round"/>
+  <path d="M139 137H221L211 161C205 176 193 184 180 184C167 184 155 176 149 161L139 137Z" fill="#FFFFFF"/>
+  <rect x="173" y="180" width="14" height="66" rx="7" fill="#D5B46B"/>
+  <path d="M151 256C151 241 163 229 178 229H182C197 229 209 241 209 256V262H151V256Z" fill="#FFFFFF"/>
+  <rect x="132" y="259" width="96" height="13" rx="6.5" fill="#D5B46B"/>
+  <path d="M210 202C251 200 269 218 265 244C263 259 251 268 237 268" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="269" cy="239" r="7" fill="#D5B46B"/>
+  <text x="180" y="307" fill="#FFFFFF" font-family="Georgia, serif" font-size="29" font-weight="700" text-anchor="middle" letter-spacing="2">HOKAH</text>
+  <text x="180" y="333" fill="#D5B46B" font-family="Georgia, serif" font-size="18" font-weight="700" text-anchor="middle" letter-spacing="6">MOOD</text>
+</svg>
