@@ -20,8 +20,8 @@ export default function AdminLayout({
     return <>{children}</>;
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminAuth');
+  const handleLogout = async () => {
+    await fetch('/api/admin/session', { method: 'DELETE' });
     localStorage.removeItem('adminEmail');
     router.push('/admin/login');
   };

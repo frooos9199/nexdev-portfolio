@@ -9,15 +9,17 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const authStatus = localStorage.getItem('adminAuth');
-    
-    if (authStatus !== 'true') {
-      router.push('/admin/login');
-    } else {
-      setIsAuthenticated(true);
-    }
-    
-    setIsLoading(false);
+    fetch('/api/admin/session', { cache: 'no-store' })
+      .then((response) => response.json())
+      .then(({ authenticated }) => {
+        if (authenticated) {
+          setIsAuthenticated(true);
+        } else {
+          router.push('/admin/login');
+        }
+      })
+      .catch(() => router.push('/admin/login'))
+      .finally(() => setIsLoading(false));
   }, [router]);
 
   if (isLoading) {

@@ -11,20 +11,18 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const ADMIN_EMAIL = 'summit_kw@hotmail.com';
-  const ADMIN_PASSWORD = '91998910';
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    // محاكاة تأخير الشبكة
-    await new Promise(resolve => setTimeout(resolve, 500));
+    const response = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
 
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-      // حفظ حالة تسجيل الدخول
-      localStorage.setItem('adminAuth', 'true');
+    if (response.ok) {
       localStorage.setItem('adminEmail', email);
       router.push('/admin');
     } else {

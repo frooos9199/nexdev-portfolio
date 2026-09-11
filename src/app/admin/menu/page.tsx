@@ -25,10 +25,37 @@ export default function MenuAdminPage() {
   const [logo, setLogo] = useState(DEFAULT_LOGO);
   const [logoError, setLogoError] = useState('');
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
-    setSections(loadMenu());
-    setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
+    const loadSharedMenu = async () => {
+      try {
+        const response = await fetch('/api/menu', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Unable to load menu');
+        const data = await response.json();
+        const localSections = loadMenu();
+        const localLogo = localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO;
+
+        if (data.isDefault && localStorage.getItem(MENU_STORAGE_KEY)) {
+          setSections(localSections);
+          setLogo(localLogo);
+        } else {
+          setSections(data.sections);
+          setLogo(data.logo || DEFAULT_LOGO);
+          localStorage.setItem(MENU_STORAGE_KEY, JSON.stringify(data.sections));
+          if (data.logo && data.logo !== DEFAULT_LOGO) {
+            localStorage.setItem(MENU_LOGO_STORAGE_KEY, data.logo);
+          }
+        }
+      } catch {
+        setSections(loadMenu());
+        setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
+        setSaveError('تعذر تحميل النسخة المشتركة، تم عرض النسخة المحفوظة على هذا الجهاز');
+      }
+    };
+
+    loadSharedMenu();
   }, []);
 
   const changeLogo = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,16 +144,33 @@ export default function MenuAdminPage() {
     )));
   };
 
-  const saveMenu = () => {
-    localStorage.setItem(MENU_STORAGE_KEY, JSON.stringify(sections));
-    if (logo === DEFAULT_LOGO) {
-      localStorage.removeItem(MENU_LOGO_STORAGE_KEY);
-    } else {
-      localStorage.setItem(MENU_LOGO_STORAGE_KEY, logo);
+  const saveMenu = async () => {
+    setSaving(true);
+    setSaveError('');
+
+    try {
+      const response = await fetch('/api/menu', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sections, logo }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'تعذر حفظ المنيو');
+
+      localStorage.setItem(MENU_STORAGE_KEY, JSON.stringify(sections));
+      if (logo === DEFAULT_LOGO) {
+        localStorage.removeItem(MENU_LOGO_STORAGE_KEY);
+      } else {
+        localStorage.setItem(MENU_LOGO_STORAGE_KEY, logo);
+      }
+      window.dispatchEvent(new Event('menu-updated'));
+      setSaved(true);
+      window.setTimeout(() => setSaved(false), 2500);
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'تعذر حفظ المنيو');
+    } finally {
+      setSaving(false);
     }
-    window.dispatchEvent(new Event('menu-updated'));
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2500);
   };
 
   return (
@@ -134,6 +178,11 @@ export default function MenuAdminPage() {
       {saved && (
         <div className="fixed left-1/2 top-5 z-50 -translate-x-1/2 rounded-md bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg">
           تم حفظ المنيو
+        </div>
+      )}
+      {saveError && (
+        <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+          {saveError}
         </div>
       )}
 
@@ -154,10 +203,11 @@ export default function MenuAdminPage() {
           <button
             type="button"
             onClick={saveMenu}
+            disabled={saving}
             className="flex h-11 flex-1 items-center justify-center gap-2 rounded-md bg-gray-950 px-6 font-semibold text-white transition hover:bg-gray-800"
           >
             <FiSave />
-            حفظ التغييرات
+            {saving ? 'جاري الحفظ...' : 'حفظ التغييرات'}
           </button>
         </div>
       </div>
@@ -325,10 +375,11 @@ export default function MenuAdminPage() {
         <button
           type="button"
           onClick={saveMenu}
+          disabled={saving}
           className="flex h-11 w-full items-center justify-center gap-2 rounded-md bg-gray-950 px-6 font-semibold text-white transition hover:bg-gray-800 sm:w-auto"
         >
           <FiSave />
-          حفظ التغييرات
+          {saving ? 'جاري الحفظ...' : 'حفظ التغييرات'}
         </button>
       </div>
     </div>

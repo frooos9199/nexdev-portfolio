@@ -28,18 +28,27 @@ export default function MenuClient() {
   const [logo, setLogo] = useState(DEFAULT_LOGO);
 
   useEffect(() => {
-    setSections(loadMenu());
-    setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
-
-    const syncMenu = () => {
-      setSections(loadMenu());
-      setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
+    const syncMenu = async () => {
+      try {
+        const response = await fetch('/api/menu', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Unable to load menu');
+        const data = await response.json();
+        setSections(data.sections);
+        setLogo(data.logo || DEFAULT_LOGO);
+      } catch {
+        setSections(loadMenu());
+        setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
+      }
     };
+
+    syncMenu();
     window.addEventListener('storage', syncMenu);
     window.addEventListener('menu-updated', syncMenu);
+    window.addEventListener('focus', syncMenu);
     return () => {
       window.removeEventListener('storage', syncMenu);
       window.removeEventListener('menu-updated', syncMenu);
+      window.removeEventListener('focus', syncMenu);
     };
   }, []);
 
