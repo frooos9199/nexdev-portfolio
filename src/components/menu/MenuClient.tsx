@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cloneDefaultMenu, MENU_LOGO_STORAGE_KEY, MENU_STORAGE_KEY, MenuLanguage, MenuSection } from '@/data/menu';
 
 const DEFAULT_LOGO = '/hokah-mood-logo.svg';
@@ -26,6 +26,9 @@ export default function MenuClient() {
   const [language, setLanguage] = useState<MenuLanguage>('ar');
   const [sections, setSections] = useState<MenuSection[]>(cloneDefaultMenu);
   const [logo, setLogo] = useState(DEFAULT_LOGO);
+  const [activeSection, setActiveSection] = useState(() => cloneDefaultMenu()[0]?.id ?? '');
+  const categoryNav = useRef<HTMLDivElement>(null);
+  const categoryLinks = useRef(new Map<string, HTMLAnchorElement>());
 
   useEffect(() => {
     const syncMenu = async () => {
@@ -51,6 +54,60 @@ export default function MenuClient() {
       window.removeEventListener('focus', syncMenu);
     };
   }, []);
+
+  useEffect(() => {
+    let frameId = 0;
+
+    const updateActiveSection = () => {
+      frameId = 0;
+      if (!sections.length) return;
+
+      const pageBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      let currentId = sections[0].id;
+
+      if (pageBottom) {
+        currentId = sections.at(-1)?.id ?? currentId;
+      } else {
+        const activationLine = 120;
+        for (const section of sections) {
+          const element = document.getElementById(section.id);
+          if (element && element.getBoundingClientRect().top <= activationLine) {
+            currentId = section.id;
+          }
+        }
+      }
+
+      setActiveSection((current) => current === currentId ? current : currentId);
+    };
+
+    const handleScroll = () => {
+      if (!frameId) frameId = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
+  }, [sections]);
+
+  useEffect(() => {
+    const container = categoryNav.current;
+    const link = categoryLinks.current.get(activeSection);
+    if (!container || !link) return;
+
+    const containerBounds = container.getBoundingClientRect();
+    const linkBounds = link.getBoundingClientRect();
+    const offset = linkBounds.left + linkBounds.width / 2 - (containerBounds.left + containerBounds.width / 2);
+
+    container.scrollBy({
+      left: offset,
+      behavior: 'smooth',
+    });
+  }, [activeSection]);
 
   const groups = sections.reduce<MenuSection[][]>((result, section) => {
     const previous = result.at(-1);
@@ -89,12 +146,22 @@ export default function MenuClient() {
       </header>
 
       <nav className="sticky top-0 z-20 border-b border-[#d5b46b]/25 bg-[#050505]/95 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl gap-7 overflow-x-auto px-5 py-4 sm:justify-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div ref={categoryNav} className="mx-auto flex max-w-5xl gap-7 overflow-x-auto px-5 py-4 sm:justify-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {sections.map((section) => (
             <a
               key={section.id}
               href={`#${section.id}`}
-              className="shrink-0 text-sm font-semibold text-white/65 transition hover:text-[#d5b46b]"
+              ref={(element) => {
+                if (element) categoryLinks.current.set(section.id, element);
+                else categoryLinks.current.delete(section.id);
+              }}
+              aria-current={activeSection === section.id ? 'location' : undefined}
+              onClick={() => setActiveSection(section.id)}
+              className={`shrink-0 border-b-2 px-1 pb-1 text-sm font-semibold transition ${
+                activeSection === section.id
+                  ? 'border-[#d5b46b] text-[#d5b46b]'
+                  : 'border-transparent text-white/65 hover:text-[#d5b46b]'
+              }`}
             >
               {section.name[language]}
             </a>
