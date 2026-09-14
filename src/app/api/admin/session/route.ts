@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ADMIN_COOKIE, isAdminRequest } from '@/lib/adminSession';
+import { ADMIN_COOKIE, getAdminRequestSession } from '@/lib/adminSession';
 
 export function GET(request: NextRequest) {
-  return NextResponse.json({ authenticated: isAdminRequest(request) });
+  const session = getAdminRequestSession(request);
+  return NextResponse.json({ authenticated: Boolean(session), ...session });
 }
 
 export function DELETE() {

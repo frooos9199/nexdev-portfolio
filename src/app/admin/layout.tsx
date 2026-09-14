@@ -26,8 +26,6 @@ export default function AdminLayout({
     router.push('/admin/login');
   };
 
-  const adminEmail = typeof window !== 'undefined' ? localStorage.getItem('adminEmail') : null;
-
   const isActive = (path: string) => {
     if (path === '/admin') {
       return pathname === '/admin';
@@ -37,6 +35,7 @@ export default function AdminLayout({
 
   return (
     <ProtectedRoute>
+      {(session) => (
       <div className="min-h-screen bg-gray-50">
         {/* Mobile Menu Button */}
         <button
@@ -60,10 +59,12 @@ export default function AdminLayout({
         }`}>
           <div className="mb-8">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">NexDev</h2>
-            <p className="text-sm text-gray-400">لوحة التحكم</p>
+            <p className="text-sm text-gray-400">{session.role === 'menu' ? 'إدارة المنيو' : 'لوحة التحكم'}</p>
           </div>
 
           <nav className="space-y-2 pb-6">
+            {session.role === 'admin' && (
+              <>
             <Link 
               href="/admin" 
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
@@ -111,6 +112,8 @@ export default function AdminLayout({
               <FiSmartphone className="text-xl" />
               <span>التطبيقات</span>
             </Link>
+              </>
+            )}
 
             <Link
               href="/admin/menu"
@@ -123,7 +126,9 @@ export default function AdminLayout({
               <FiCoffee className="text-xl" />
               <span>المنيو</span>
             </Link>
-            
+
+            {session.role === 'admin' && (
+              <>
             <Link 
               href="/admin/invoices" 
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
@@ -159,6 +164,8 @@ export default function AdminLayout({
               <FiSettings className="text-xl" />
               <span>الإعدادات</span>
             </Link>
+              </>
+            )}
           </nav>
 
           <div className="mt-auto space-y-3 pt-4">
@@ -171,8 +178,8 @@ export default function AdminLayout({
             </button>
             
             <div className="bg-gradient-to-r from-gray-800 to-gray-800/50 rounded-lg p-4 border border-purple-500/20">
-              <p className="text-sm font-medium">المدير</p>
-              <p className="text-xs text-gray-400 truncate">{adminEmail || 'summit_kw@hotmail.com'}</p>
+              <p className="text-sm font-medium">{session.role === 'menu' ? 'مدير المنيو' : 'المدير'}</p>
+              <p className="text-xs text-gray-400 truncate">{session.username}</p>
             </div>
           </div>
         </aside>
@@ -182,6 +189,7 @@ export default function AdminLayout({
           {children}
         </main>
       </div>
+      )}
     </ProtectedRoute>
   );
 }

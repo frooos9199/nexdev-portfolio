@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import MenuClient from '@/components/menu/MenuClient';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nexdev-one.vercel.app'),
+  metadataBase: new URL('https://www.q8nexdev.com'),
   title: 'Hokah MooD | Menu',
   description: 'منيو Hokah MooD - المشروبات والحلويات والشيشة',
   alternates: {

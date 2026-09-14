@@ -23,8 +23,9 @@ export default function LoginPage() {
     });
 
     if (response.ok) {
-      localStorage.setItem('adminEmail', email.trim().toLowerCase());
-      router.push('/admin');
+      const session = await response.json();
+      localStorage.setItem('adminEmail', session.username);
+      router.push(session.role === 'menu' ? '/admin/menu' : '/admin');
     } else {
       setError('البريد الإلكتروني أو كلمة المرور غير صحيحة');
       setLoading(false);
@@ -55,18 +56,18 @@ export default function LoginPage() {
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              البريد الإلكتروني
+              اسم المستخدم أو البريد الإلكتروني
             </label>
             <div className="relative">
               <FiMail className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
-                type="email"
-                autoComplete="email"
+                type="text"
+                autoComplete="username"
                 autoCapitalize="none"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 font-medium"
-                placeholder="email@example.com"
+                placeholder="اسم المستخدم"
                 required
               />
             </div>

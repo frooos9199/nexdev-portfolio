@@ -1,26 +1,36 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
-export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
+type Session = {
+  username: string;
+  role: 'admin' | 'menu';
+};
+
+export default function ProtectedRoute({ children }: { children: (session: Session) => React.ReactNode }) {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const pathname = usePathname();
+  const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/admin/session', { cache: 'no-store' })
       .then((response) => response.json())
-      .then(({ authenticated }) => {
-        if (authenticated) {
-          setIsAuthenticated(true);
+      .then((data) => {
+        if (data.authenticated && data.username && data.role) {
+          if (data.role === 'menu' && pathname !== '/admin/menu') {
+            router.replace('/admin/menu');
+            return;
+          }
+          setSession({ username: data.username, role: data.role });
         } else {
-          router.push('/admin/login');
+          router.replace('/admin/login');
         }
       })
-      .catch(() => router.push('/admin/login'))
+      .catch(() => router.replace('/admin/login'))
       .finally(() => setIsLoading(false));
-  }, [router]);
+  }, [pathname, router]);
 
   if (isLoading) {
     return (
@@ -33,9 +43,9 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
     );
   }
 
-  if (!isAuthenticated) {
+  if (!session) {
     return null;
   }
 
-  return <>{children}</>;
+  return <>{children(session)}</>;
 }
