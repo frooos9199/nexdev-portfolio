@@ -151,6 +151,20 @@ export default function MenuAdminPage() {
     }));
   };
 
+  const moveSection = (sectionIndex: number, direction: -1 | 1) => {
+    setSections((current) => {
+      const targetIndex = sectionIndex + direction;
+      if (targetIndex < 0 || targetIndex >= current.length) return current;
+
+      const reorderedSections = [...current];
+      [reorderedSections[sectionIndex], reorderedSections[targetIndex]] = [
+        reorderedSections[targetIndex],
+        reorderedSections[sectionIndex],
+      ];
+      return reorderedSections;
+    });
+  };
+
   const addSection = () => {
     setSections((current) => [
       ...current,
@@ -303,14 +317,37 @@ export default function MenuAdminPage() {
           <section key={section.id} className="overflow-hidden rounded-md border border-gray-200 bg-white shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
               <h2 className="font-bold text-gray-900">{section.name.ar}</h2>
-              <button
-                type="button"
-                onClick={() => removeSection(sectionIndex)}
-                title="حذف القسم"
-                className="flex h-9 w-9 items-center justify-center rounded-md text-red-600 transition hover:bg-red-50"
-              >
-                <FiTrash2 />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => moveSection(sectionIndex, -1)}
+                  disabled={sectionIndex === 0}
+                  title="نقل القسم للأعلى"
+                  aria-label={`نقل قسم ${section.name.ar} للأعلى`}
+                  className="flex h-9 w-9 items-center justify-center rounded-md text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-25"
+                >
+                  <FiChevronUp />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => moveSection(sectionIndex, 1)}
+                  disabled={sectionIndex === sections.length - 1}
+                  title="نقل القسم للأسفل"
+                  aria-label={`نقل قسم ${section.name.ar} للأسفل`}
+                  className="flex h-9 w-9 items-center justify-center rounded-md text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-25"
+                >
+                  <FiChevronDown />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => removeSection(sectionIndex)}
+                  title="حذف القسم"
+                  aria-label={`حذف قسم ${section.name.ar}`}
+                  className="flex h-9 w-9 items-center justify-center rounded-md text-red-600 transition hover:bg-red-50"
+                >
+                  <FiTrash2 />
+                </button>
+              </div>
             </div>
             <div className="grid gap-4 border-b border-gray-200 bg-gray-50 p-4 sm:grid-cols-2 lg:grid-cols-4">
               <label className="text-sm font-medium text-gray-700">
