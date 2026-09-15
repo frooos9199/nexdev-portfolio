@@ -23,6 +23,7 @@ const loadMenu = () => {
 export default function MenuAdminPage() {
   const [sections, setSections] = useState<MenuSection[]>(cloneDefaultMenu);
   const [logo, setLogo] = useState(DEFAULT_LOGO);
+  const [logoLoaded, setLogoLoaded] = useState(false);
   const [logoError, setLogoError] = useState('');
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -52,6 +53,8 @@ export default function MenuAdminPage() {
         setSections(loadMenu());
         setLogo(localStorage.getItem(MENU_LOGO_STORAGE_KEY) || DEFAULT_LOGO);
         setSaveError('تعذر تحميل النسخة المشتركة، تم عرض النسخة المحفوظة على هذا الجهاز');
+      } finally {
+        setLogoLoaded(true);
       }
     };
 
@@ -275,15 +278,17 @@ export default function MenuAdminPage() {
       <section className="rounded-md border border-gray-200 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-md bg-black p-2">
-            <Image
-              key={logo}
-              src={logo}
-              alt="شعار Hokah MooD"
-              width={120}
-              height={120}
-              unoptimized
-              className="h-full w-full object-contain"
-            />
+            {logoLoaded && (
+              <Image
+                key={logo}
+                src={logo}
+                alt="شعار Hokah MooD"
+                width={120}
+                height={120}
+                unoptimized
+                className="h-full w-full object-contain"
+              />
+            )}
           </div>
           <div className="flex-1">
             <h2 className="text-lg font-bold text-gray-900">شعار المنيو</h2>
@@ -294,18 +299,6 @@ export default function MenuAdminPage() {
                 تغيير الشعار
                 <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={changeLogo} className="sr-only" />
               </label>
-              {logo !== DEFAULT_LOGO && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setLogo(DEFAULT_LOGO);
-                    setLogoError('');
-                  }}
-                  className="rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 transition hover:bg-gray-50"
-                >
-                  استعادة الشعار الأساسي
-                </button>
-              )}
             </div>
             {logoError && <p className="mt-2 text-sm font-medium text-red-600">{logoError}</p>}
           </div>
